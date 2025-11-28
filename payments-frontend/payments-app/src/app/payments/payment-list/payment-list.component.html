@@ -1,0 +1,52 @@
+<div class="payment-list-container">
+  <h2>Payments</h2>
+
+  <div class="filter">
+    <label>User:</label>
+    <select [(ngModel)]="selectedUser" (ngModelChange)="onUserChange()">
+      <option value="">All Users</option>
+      <option *ngFor="let u of users" [value]="u">{{ u }}</option>
+    </select>
+
+    <button (click)="openAddPayment()">Add Payment</button>
+  </div>
+
+  <div *ngIf="loading">Loading payments...</div>
+
+  <table *ngIf="!loading && payments.length > 0">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Amount</th>
+        <th>Currency</th>
+        <th>Client Request ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of payments">
+        <td>{{ p.userId }}</td>
+        <td>{{ p.amount | number:'1.2-2' }}</td>
+        <td>{{ p.currency }}</td>
+        <td>{{ p.clientRequestId }}</td>
+        <td>
+          <button (click)="openEditPayment(p)">Edit</button>
+          <button (click)="deletePayment(p.userId, p.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && payments.length === 0">No payments found.</div>
+
+  <!-- Inline Payment Form -->
+  <div *ngIf="isFormVisible" class="modal-overlay">
+    <div class="modal-content">
+      <app-payment-form
+        [paymentId]="editingPaymentId"
+        [userId]="editingUserId"
+        (close)="onFormClose($event)">
+      </app-payment-form>
+    </div>
+  </div>
+</div>

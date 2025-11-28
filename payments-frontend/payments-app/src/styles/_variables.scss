@@ -1,0 +1,16 @@
+$primary: #1b74e4;
+$success: #22c55e;
+$danger: #ef4444;
+$secondary: #555;
+$radius: 12px;
+$shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+
+@mixin btn($bg) {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+  background: $bg;
+}

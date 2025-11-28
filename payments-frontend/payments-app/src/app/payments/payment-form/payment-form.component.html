@@ -1,0 +1,42 @@
+<div class="payment-form-container">
+  <h3>{{ isEditMode ? 'Edit Payment' : 'Add Payment' }}</h3>
+
+  <form (ngSubmit)="submitForm()">
+
+    <!-- User Selection -->
+    <div class="form-group">
+      <label>User</label>
+      <select [(ngModel)]="model.userId" name="userId" required>
+        <option value="">Select User</option>
+        <option *ngFor="let u of users" [value]="u">{{ u }}</option>
+      </select>
+    </div>
+
+    <!-- Amount -->
+    <div class="form-group">
+      <label>Amount</label>
+      <input type="number" [(ngModel)]="model.amount" name="amount" required />
+    </div>
+
+    <!-- Currency -->
+    <div class="form-group">
+      <label>Currency</label>
+      <select [(ngModel)]="model.currency" name="currency">
+        <option value="INR">INR</option>
+        <option value="USD">USD</option>
+      </select>
+    </div>
+
+    <!-- Reference -->
+    <div class="form-group">
+      <label>Reference</label>
+      <input type="text" [(ngModel)]="model.reference" name="reference" />
+    </div>
+
+    <!-- Buttons -->
+    <div class="form-buttons">
+      <button type="submit" [disabled]="isSubmitting">{{ isEditMode ? 'Update' : 'Create' }}</button>
+      <button type="button" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
