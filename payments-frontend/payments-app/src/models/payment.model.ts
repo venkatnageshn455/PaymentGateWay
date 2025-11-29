@@ -6,6 +6,7 @@ export interface Payment {
   currency: string;
   reference: string;
   createdAt?: string;
+  updatedAt?: string | null;
 }
 
 export interface PaymentRequestDto {
@@ -14,6 +15,8 @@ export interface PaymentRequestDto {
   amount: number;
   currency: string;
   reference?: string;
+  updatedAt?: string | null;
+
 }
 
 export interface UserDto {

@@ -19,10 +19,9 @@ export class PaymentListComponent implements OnInit {
   payments: Payment[] = [];
   loading: boolean = false;
 
-  // Form control
+  // Form state
   isFormVisible = false;
-  editingPaymentId: number | null = null;
-  editingUserId: string | null = null;
+  selectedRow: Payment | null = null;   // NEW → passes whole row
 
   constructor(private paymentService: PaymentService) {}
 
@@ -41,8 +40,14 @@ export class PaymentListComponent implements OnInit {
   loadPayments() {
     this.loading = true;
     this.paymentService.getAll(this.selectedUser).subscribe({
-      next: res => { this.payments = res; this.loading = false; },
-      error: err => { console.error(err); this.loading = false; }
+      next: res => {
+        this.payments = res;
+        this.loading = false;
+      },
+      error: err => {
+        console.error(err);
+        this.loading = false;
+      }
     });
   }
 
@@ -51,27 +56,27 @@ export class PaymentListComponent implements OnInit {
   }
 
   openAddPayment() {
-    this.editingPaymentId = null;
-    this.editingUserId = null;
+    this.selectedRow = null;        // no row → Add mode
     this.isFormVisible = true;
   }
 
   openEditPayment(payment: Payment) {
-    this.editingPaymentId = payment.id;
-    this.editingUserId = payment.userId;
+    this.selectedRow = payment;     // pass full row for Edit mode
     this.isFormVisible = true;
   }
 
   onFormClose(refresh: boolean) {
     this.isFormVisible = false;
-    this.editingPaymentId = null;
-    this.editingUserId = null;
+    this.selectedRow = null;
 
-    if (refresh) this.loadPayments();
+    if (refresh) {
+      this.loadPayments();
+    }
   }
 
   deletePayment(userId: string, id: number) {
     if (!confirm("Delete this payment?")) return;
+
     this.paymentService.delete(userId, id).subscribe({
       next: () => this.loadPayments(),
       error: err => console.error(err)

@@ -85,7 +85,7 @@ namespace PaymentsBackend.DataStore
 
             payment.Amount = request.Amount;
             payment.Currency = request.Currency;
-
+            payment.UpdatedAt = DateTime.UtcNow;
             await _repo.UpdateAsync(payment);
             await _logger.LogAsync(request.UserId, "Update", request, payment, true);
 

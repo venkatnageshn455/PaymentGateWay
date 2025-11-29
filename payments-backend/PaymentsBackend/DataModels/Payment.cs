@@ -51,7 +51,9 @@ namespace PaymentsBackend.DataModels
         public decimal Amount { get; set; }
         public string Currency { get; set; } = default!; // USD, EUR, INR, GBP
         public int id { get; set; } // send default 0 for Insert
-       
+        public string? Reference { get; set; } = default!;
+        public DateTime? UpdatedAt { get; set; }
+
     }
     public class UserDto
     {

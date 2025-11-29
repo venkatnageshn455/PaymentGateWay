@@ -179,6 +179,15 @@
           "id": {
             "type": "integer",
             "format": "int32"
+          },
+          "reference": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         },
         "additionalProperties": false
